@@ -61,7 +61,7 @@ def scrape_info():
             if valid_campsite(description.text):
                 found.append(url)
                 break
-        return found
+    return found
 
 if __name__ == '__main__':
     while 1:
