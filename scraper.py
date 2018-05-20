@@ -30,6 +30,15 @@ def send_email(mail_body):
         'text': mail_body
     })
 
+def valid_campsite(description):
+    lower_desc = description.lower()
+    if lower_desc.find('horse') != -1:
+        return False
+    if lower_desc.find('tent') != -1:
+        return True
+    return False
+    
+
 def scrape_info():
     found = []
     for reservation_request in config['reservation_requests']:
@@ -49,8 +58,7 @@ def scrape_info():
         for site in sites:
             data = site.find_all('td')
             description = data[1]
-            site_info_text = description.text
-            if site_info_text.lower().find('tent') != -1:
+            if valid_campsite(description.text):
                 found.append(url)
                 break
         return found
@@ -59,9 +67,12 @@ if __name__ == '__main__':
     while 1:
        found = scrape_info()
 
-       if found:
+       if len(found) > 0:
           logger.info('Found some campsites!')
-          send_email('\n'.join(found))
+          site_list = '\n'.join(found)
+          logger.info(site_list)
+          send_email(site_list)
+          break
        else:
           logger.info('No campsites found')
        time.sleep(300)
