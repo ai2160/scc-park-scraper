@@ -1,0 +1,9 @@
+.Python
+bin
+include
+lib
+secrets.py
+*.pyc
+*.json
+*.log
+config.json
