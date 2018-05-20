@@ -1,0 +1,10 @@
+{
+    "emails": ["abc@gmail.com"],
+    "reservation_requests": [
+        {
+            "start_date": "05/28/2018",
+            "length": 2,
+            "park_id": 0
+        }
+    ]
+}
