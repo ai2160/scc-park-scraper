@@ -2,6 +2,8 @@
 
 Notifies you when campsites at a santa clara county park is available for reservation.
 
+**Note**: Start date must be at least 3 days from scraping date. This is a requirement by county.
+
 ## Requirements
 
     - A server with python 3.4 or greater

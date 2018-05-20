@@ -49,7 +49,8 @@ def scrape_info():
         for site in sites:
             data = site.find_all('td')
             description = data[1]
-            if description.text().lower().find('tent') != -1:
+            site_info_text = description.text
+            if site_info_text.lower().find('tent') != -1:
                 found.append(url)
                 break
         return found
