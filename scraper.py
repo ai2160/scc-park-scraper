@@ -65,14 +65,18 @@ def scrape_info():
 
 if __name__ == '__main__':
     while 1:
-       found = scrape_info()
+        try:
+            found = scrape_info()
+        except Exception as e:
+            send_email(e.args)
+            break
 
-       if len(found) > 0:
-          logger.info('Found some campsites!')
-          site_list = '\n'.join(found)
-          logger.info(site_list)
-          send_email(site_list)
-          break
-       else:
-          logger.info('No campsites found')
-       time.sleep(300)
+        if len(found) > 0:
+            logger.info('Found some campsites!')
+            site_list = '\n'.join(found)
+            logger.info(site_list)
+            send_email(site_list)
+            break
+        else:
+            logger.info('No campsites found')
+        time.sleep(300)
