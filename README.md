@@ -25,3 +25,5 @@ source bin/activate                 # Enter it
 pip install -r requirements.txt     # Install python dependencies 
 python scraper.py                   # Run the scraper
 ```
+
+When creating virtualenv, you may have to use "**virutalenv -p python3 .**" to ensure your virutualenv is created for python3 interpreter. This may not be a problem depending on how you installed virtualenv.
