@@ -22,17 +22,19 @@ config = None
 with open('config.json') as config_file:
     config = json.loads(config_file.read())
 
-def send_email(mail_body):
+def send_email(mail_body, subject):
     response = requests.post(MG_URL, auth=('api', MG_KEY), data={
         'from': '"SCC Scraper" <camper@westerncamper.photography>',
         'to': ','.join(config['emails']),
-        'subject': 'Found SCC camp sites!',
+        'subject': subject,
         'text': mail_body
     })
 
 def valid_campsite(description):
     lower_desc = description.lower()
     if lower_desc.find('horse') != -1:
+        return False
+    if lower_desc.find('ada') != -1:
         return False
     if lower_desc.find('tent') != -1:
         return True
@@ -68,14 +70,14 @@ if __name__ == '__main__':
         try:
             found = scrape_info()
         except Exception as e:
-            send_email(e.args)
+            send_email(e.args, "Uh oh! Scraper Exception")
             break
 
         if len(found) > 0:
             logger.info('Found some campsites!')
             site_list = '\n'.join(found)
             logger.info(site_list)
-            send_email(site_list)
+            send_email(site_list, "Yay! Found campsites")
             break
         else:
             logger.info('No campsites found')
