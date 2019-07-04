@@ -54,6 +54,7 @@ def scrape_info():
         query_path = REQUEST_PATH.format(start=start_date, park_id=park_id, length=length)
         url = BASE_URL + query_path
         browser = RoboBrowser(user_agent='Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko')
+        logger.info("Requesting page: %s" % url)
         browser.open(url)
         sites = browser.find('div', {'id': 'list_camping'}).find_all('tr')
         
@@ -71,7 +72,7 @@ if __name__ == '__main__':
             found = scrape_info()
         except Exception as e:
             send_email(e.args, "Uh oh! Scraper Exception")
-            break
+            raise e
 
         if len(found) > 0:
             logger.info('Found some campsites!')
